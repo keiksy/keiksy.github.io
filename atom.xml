@@ -4,21 +4,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">Keiksy&#39;s NotePad</title>
     <subtitle type="html">Keiksy同学的技术博客</subtitle>
-    <updated>2020-03-04T04:44:50+08:00</updated>
-    <id>https://keiksy.github.io/</id>
-    <link rel="alternate" type="text/html" href="https://keiksy.github.io/" />
-    <link rel="self" type="application/atom+xml" href="https://keiksy.github.io/atom.xml" />
+    <updated>2020-03-04T05:59:39+08:00</updated>
+    <id>https://keiksy.me/</id>
+    <link rel="alternate" type="text/html" href="https://keiksy.me/" />
+    <link rel="self" type="application/atom+xml" href="https://keiksy.me/atom.xml" />
     
     
     <generator uri="https://gohugo.io/" version="0.65.3">Hugo</generator>
         <entry>
             <title type="text">TCP&RDP原理简述</title>
-            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />
-            <id>https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</id>
+            <link rel="alternate" type="text/html" href="https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />
+            <id>https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</id>
             <updated>2020-03-04T04:43:28+08:00</updated>
             <published>2020-03-04T04:41:04+08:00</published>
             <author>
-                    <uri>https://keiksy.github.io/</uri>
+                    <uri>https://keiksy.me/</uri>
                     </author>
             
     
@@ -119,13 +119,13 @@
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" term="计算机基础" label="计算机基础" />
+                                <category scheme="https://keiksy.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" term="计算机基础" label="计算机基础" />
                             
                         
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/" term="网络" label="网络" />
+                                <category scheme="https://keiksy.me/categories/%E7%BD%91%E7%BB%9C/" term="网络" label="网络" />
                             
                         
                     
@@ -135,7 +135,7 @@
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/tags/%E6%80%BB%E7%BB%93/" term="总结" label="总结" />
+                                <category scheme="https://keiksy.me/tags/%E6%80%BB%E7%BB%93/" term="总结" label="总结" />
                             
                         
                     

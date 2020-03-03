@@ -8,7 +8,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Keiksy&#39;s NotePad</title>
-        <link>https://keiksy.github.io/</link>
+        <link>https://keiksy.me/</link>
         <description>Keiksy同学的技术博客</description>
         <generator>Hugo 0.65.3 https://gohugo.io/</generator>
         
@@ -17,15 +17,15 @@
         
         
         
-        <lastBuildDate>Wed, 04 Mar 2020 04:44:50 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 04 Mar 2020 05:59:39 +0800</lastBuildDate>
         
-            <atom:link rel="self" type="application/rss+xml" href="https://keiksy.github.io/rss.xml" />
+            <atom:link rel="self" type="application/rss+xml" href="https://keiksy.me/rss.xml" />
         
         
             <item>
                 <title>TCP&RDP原理简述</title>
-                <link>https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</link>
-                <guid isPermaLink="true">https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</guid>
+                <link>https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</link>
+                <guid isPermaLink="true">https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</guid>
                 <pubDate>Wed, 04 Mar 2020 04:41:04 +0800</pubDate>
                 
                 
@@ -125,13 +125,13 @@
                                 
                                 
                                 
-                                    <category domain="https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</category>
+                                    <category domain="https://keiksy.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</category>
                                 
                             
                                 
                                 
                                 
-                                    <category domain="https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/">网络</category>
+                                    <category domain="https://keiksy.me/categories/%E7%BD%91%E7%BB%9C/">网络</category>
                                 
                             
                         
@@ -141,7 +141,7 @@
                                 
                                 
                                 
-                                    <category domain="https://keiksy.github.io/tags/%E6%80%BB%E7%BB%93/">总结</category>
+                                    <category domain="https://keiksy.me/tags/%E6%80%BB%E7%BB%93/">总结</category>
                                 
                             
                         
