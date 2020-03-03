@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+
+
+
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Keiksy&#39;s NotePad</title>
+        <link>https://keiksy.github.io/</link>
+        <description>Keiksy同学的技术博客</description>
+        <generator>Hugo 0.65.3 https://gohugo.io/</generator>
+        
+            <language>zh-CN</language>
+        
+        
+        
+        
+        <lastBuildDate>Tue, 03 Mar 2020 23:53:07 +0800</lastBuildDate>
+        
+            <atom:link rel="self" type="application/rss+xml" href="https://keiksy.github.io/rss.xml" />
+        
+        
+            <item>
+                <title>Hello World</title>
+                <link>https://keiksy.github.io/posts/hello-world/</link>
+                <guid isPermaLink="true">https://keiksy.github.io/posts/hello-world/</guid>
+                <pubDate>Tue, 03 Mar 2020 17:39:30 +0800</pubDate>
+                
+                
+                
+                    <description><![CDATA[<h1 id="我的第一篇文字">我的第一篇文字</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+                
+                
+                
+                
+                
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://keiksy.github.io/categories/development/">Development</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://keiksy.github.io/categories/golang/">GoLang</category>
+                                
+                            
+                        
+                    
+                        
+                    
+                
+            </item>
+        
+    </channel>
+</rss>
