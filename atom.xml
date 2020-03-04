@@ -4,13 +4,54 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">Keiksy&#39;s NotePad</title>
     <subtitle type="html">Keiksy同学的技术博客</subtitle>
-    <updated>2020-03-04T15:53:55+08:00</updated>
+    <updated>2020-03-04T17:00:52+08:00</updated>
     <id>https://keiksy.me/</id>
     <link rel="alternate" type="text/html" href="https://keiksy.me/" />
     <link rel="self" type="application/atom+xml" href="https://keiksy.me/atom.xml" />
     
     
     <generator uri="https://gohugo.io/" version="0.65.3">Hugo</generator>
+        <entry>
+            <title type="text">Hello World!</title>
+            <link rel="alternate" type="text/html" href="https://keiksy.me/posts/helloworld/" />
+            <id>https://keiksy.me/posts/helloworld/</id>
+            <updated>2020-03-04T17:00:39+08:00</updated>
+            <published>2020-03-04T16:59:31+08:00</published>
+            <author>
+                    <uri>https://keiksy.me/</uri>
+                    </author>
+            
+    
+    <summary type="html"><![CDATA[我的个人博客上线了！ 从2月24日写下第一行Django代码起，十天之后，我的Hugo……]]></summary>
+            
+                <content type="html"><![CDATA[<p><em>我的个人博客上线了！</em></p>
+<p>从2月24日写下第一行<code>Django</code>代码起，十天之后，我的<code>Hugo</code>博客终于上线了！</p>
+<p>第一次产生写些什么的想法是在大二看了知乎上一个讲互联网内容分发的文章时产生的，文章提到现在的互联网上绝大多数人都是内容的消费者，而这样只输入不输出的习惯时间久了实际上会影响一个人的表达能力，当时的我已经感到自己的文字表达能力退化了不少<del>强过吗</del>，因此决心以后找一个地方存放自己的想法。</p>
+<p>关于个人信息记录，我做过的尝试有知乎专栏（有点丑说实话），各式各样的笔记应用（我还买过一年的Bear高级会员订阅，虽然后面11个月根本就没有打开过了），始终感觉不够装逼。后来学习了包括Java SSM和<code>Django</code>在内的Web开发技术，开始打算自己写一个博客网站。于是2月24日开始看<a href="https://www.zmrenwu.com/courses/hellodjango-blog-tutorial/">教程</a>动手，选择了<code>Django</code>+阿里云主机+阿里云域名的组合，在奋战了8天以后，发现不会前端技术的我使用模板继承套出来的博客又丑又难用，在书写<code>Markdown</code>内容时还会产生奇怪的Bug，而且在VPS部署新的后台代码时Git各种各样的操作让人崩溃，最后阿里云域名备案时还产生了死锁：我的河北省身份证无法在我读书的湖南省备案，然而想在河北省备案又需要京津冀的手机号。不过总的说来，这次使用<code>Django</code>写博客的经历还是学会了不少东西：</p>
+<ul>
+<li>Django框架简单使用</li>
+<li>Linux进一步学习和第一次实践：阅读了<code>The Linux Command Line</code>一书的大部分内容，学习了<code>Vim</code>编辑器的一些奇技淫巧</li>
+<li>Git的重新学习和实践：阅读了<code>Pro Git</code>一书的部分章节</li>
+<li>一些<code>Unix</code>工具学习：进程控制工具<code>supervisor</code>，Python HTTP服务器<code>Gunicorn</code>，反向代理服务器<code>Nginx</code></li>
+<li>复习了一些计算机网络的基础知识并领略了这些知识的实际落地形式</li>
+</ul>
+<p>在解决一些<code>Django</code>博客问题的过程中，我发现了许多漂亮的个人博客，这些博客基本都是采用<code>Hexo</code>，<code>Hugo</code>等静态网页生成器生成静态页面然后部署在<code>GitHub Pages</code>上的方案，于是被上面奇奇怪怪问题困扰<del>懒</del>的我毅然采用了<code>Hugo</code>和<code>GitHub Pages</code>的方案，学习了一下午<code>Hugo</code>的使用方法以后，我发现这才是我想要的：简单，迅速，部署容易，即使不会前端的我也可以下载各种主题然后修改配置文件定制我的博客。</p>
+<p>3月4日，我用了一个通宵的时间修改配置文件，用Python写了一个部署新博文的脚本，又在GoDaddy购买了新的域名<del>可怜了我11块在阿里云买的keiksy.tech</del>，然后按照这篇<a href="https://mogeko.me/2019/056/">博客</a>的方法，在Cloudflare上做了CDN，并搞了一个HTTPS<del>以提升逼格</del>，现在你看到的博客自豪地采用了<code>Hugo</code>主题<code>MemE</code>，网站标题栏的字体是<code>Euphoria</code>，我看到这个字体的第一眼就爱上了。接下来的打算是将之前写的一些算法题题解搬运到这边，并选择一些更合适的字体，宋体这么文艺的字体显然并不适合书写技术博客。</p>
+<p>EOF</p>
+]]></content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">TCP&RDP原理简述</title>
             <link rel="alternate" type="text/html" href="https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />

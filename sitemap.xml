@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://keiksy.me/categories/</loc>
-    <lastmod>2020-03-04T04:43:28+08:00</lastmod>
+    <loc>https://keiksy.me/posts/helloworld/</loc>
+    <lastmod>2020-03-04T17:00:39+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://keiksy.me/</loc>
-    <lastmod>2020-03-04T04:43:28+08:00</lastmod>
+    <lastmod>2020-03-04T17:00:39+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://keiksy.me/posts/</loc>
+    <lastmod>2020-03-04T17:00:39+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://keiksy.me/categories/</loc>
     <lastmod>2020-03-04T04:43:28+08:00</lastmod>
   </url>
   
