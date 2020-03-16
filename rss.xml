@@ -8,7 +8,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Keiksy&#39;s NotePad</title>
-        <link>https://keiksy.me/</link>
+        <link>https://keiksy.github.io/</link>
         <description>Keiksy同学的技术博客</description>
         <generator>Hugo 0.65.3 https://gohugo.io/</generator>
         
@@ -17,15 +17,15 @@
         
         
         
-        <lastBuildDate>Tue, 10 Mar 2020 06:21:44 +0800</lastBuildDate>
+        <lastBuildDate>Mon, 16 Mar 2020 15:44:10 +0800</lastBuildDate>
         
-            <atom:link rel="self" type="application/rss+xml" href="https://keiksy.me/rss.xml" />
+            <atom:link rel="self" type="application/rss+xml" href="https://keiksy.github.io/rss.xml" />
         
         
             <item>
                 <title>我真的需要一台MacBook Pro吗</title>
-                <link>https://keiksy.me/posts/buying_mbp_or_not/</link>
-                <guid isPermaLink="true">https://keiksy.me/posts/buying_mbp_or_not/</guid>
+                <link>https://keiksy.github.io/posts/buying_mbp_or_not/</link>
+                <guid isPermaLink="true">https://keiksy.github.io/posts/buying_mbp_or_not/</guid>
                 <pubDate>Tue, 10 Mar 2020 05:58:07 +0800</pubDate>
                 
                 
@@ -150,8 +150,8 @@
         
             <item>
                 <title>Hello World!</title>
-                <link>https://keiksy.me/posts/helloworld/</link>
-                <guid isPermaLink="true">https://keiksy.me/posts/helloworld/</guid>
+                <link>https://keiksy.github.io/posts/helloworld/</link>
+                <guid isPermaLink="true">https://keiksy.github.io/posts/helloworld/</guid>
                 <pubDate>Wed, 04 Mar 2020 16:59:31 +0800</pubDate>
                 
                 
@@ -186,8 +186,8 @@
         
             <item>
                 <title>TCP&RDP原理简述</title>
-                <link>https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</link>
-                <guid isPermaLink="true">https://keiksy.me/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</guid>
+                <link>https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</link>
+                <guid isPermaLink="true">https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</guid>
                 <pubDate>Wed, 04 Mar 2020 04:41:04 +0800</pubDate>
                 
                 
@@ -287,13 +287,13 @@
                                 
                                 
                                 
-                                    <category domain="https://keiksy.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</category>
+                                    <category domain="https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</category>
                                 
                             
                                 
                                 
                                 
-                                    <category domain="https://keiksy.me/categories/%E7%BD%91%E7%BB%9C/">网络</category>
+                                    <category domain="https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/">网络</category>
                                 
                             
                         
@@ -303,7 +303,7 @@
                                 
                                 
                                 
-                                    <category domain="https://keiksy.me/tags/%E6%80%BB%E7%BB%93/">总结</category>
+                                    <category domain="https://keiksy.github.io/tags/%E6%80%BB%E7%BB%93/">总结</category>
                                 
                             
                         
