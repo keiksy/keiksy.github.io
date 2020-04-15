@@ -4,18 +4,126 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">Keiksy&#39;s NotePad</title>
     <subtitle type="html">Keiksy同学的技术博客</subtitle>
-    <updated>2020-03-17T10:12:53+08:00</updated>
+    <updated>2020-04-15T11:41:20+08:00</updated>
     <id>https://keiksy.github.io/</id>
     <link rel="alternate" type="text/html" href="https://keiksy.github.io/" />
     <link rel="self" type="application/atom+xml" href="https://keiksy.github.io/atom.xml" />
     
     
-    <generator uri="https://gohugo.io/" version="0.65.3">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator>
+        <entry>
+            <title type="text">Lc015</title>
+            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/lc015/" />
+            <id>https://keiksy.github.io/posts/lc015/</id>
+            <updated>2020-04-15T11:40:36+08:00</updated>
+            <published>2020-04-15T00:59:08+08:00</published>
+            <author>
+                    <uri>https://keiksy.github.io/</uri>
+                    </author>
+            
+    
+    <summary type="html"><![CDATA[LeetCode 015 : 3Sum 题面 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of……]]></summary>
+            
+                <content type="html"><![CDATA[<h1 id="leetcode-015--3sum">LeetCode 015 : 3Sum</h1>
+<h2 id="题面">题面</h2>
+<p>Given an array <code>nums</code> of <em>n</em> integers, are there elements <em>a</em>, <em>b</em>, <em>c</em> in <code>nums</code> such that <em>a</em> + <em>b</em> + <em>c</em> = 0? Find all unique triplets in the array which gives the sum of zero</p>
+<h2 id="题意">题意</h2>
+<p>给一个数组，找仨数，这三个数加起来等于零，找出所有不重复的组合。</p>
+<h2 id="题解">题解</h2>
+<p>最基础的解法：暴力O(n^3)。</p>
+<p>优化：固定一个，双指针法找另两个。</p>
+<p>其实里面坑还挺多的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">threeSum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+		<span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="o">//</span><span class="err">排序方便查找</span>
+  	<span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        
+    <span class="n">leng</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">leng</span><span class="p">):</span>
+      	<span class="o">//</span><span class="err">如果第一个数就大于</span><span class="mi">0</span><span class="err">，因为排过序，后面更大，不可能加起来等于</span><span class="mi">0</span>
+    		<span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+      			<span class="k">break</span>
+        <span class="o">//</span><span class="err">如果和第一个数数组中上一个数相同</span>
+        <span class="o">//</span><span class="err">事实上，在以上一个数为第一个数的搜索中，就可以将这次所有的搜索结果包括</span>
+        <span class="o">//</span><span class="err">因此，跳过去重</span>
+      	<span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        		<span class="k">continue</span>
+      	<span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">leng</span><span class="o">-</span><span class="mi">1</span>
+      	<span class="k">while</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">k</span><span class="p">:</span>
+            <span class="n">summ</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">summ</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">summ</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">k</span><span class="o">-=</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+              	<span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span>
+                <span class="o">//</span><span class="err">在这里</span><span class="n">j不要跟i一样和上一个数字比</span><span class="err">，很容易误伤</span>
+                <span class="o">//</span><span class="err">只有当产生了一个解时，再跳过所有重复的数字是合理的</span>
+              	<span class="k">while</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">k</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="k">while</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">k</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">k</span><span class="o">-=</span><span class="mi">1</span>
+                <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="n">k</span><span class="o">-=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></td></tr></table>
+</div>
+</div>]]></content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">我真的需要一台MacBook Pro吗</title>
             <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/buying_mbp_or_not/" />
             <id>https://keiksy.github.io/posts/buying_mbp_or_not/</id>
-            <updated>2020-03-17T09:52:54+08:00</updated>
+            <updated>2020-04-15T00:40:26+08:00</updated>
             <published>2020-03-10T05:58:07+08:00</published>
             <author>
                     <uri>https://keiksy.github.io/</uri>
@@ -146,7 +254,7 @@
             <title type="text">Hello World!</title>
             <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/helloworld/" />
             <id>https://keiksy.github.io/posts/helloworld/</id>
-            <updated>2020-03-17T09:52:54+08:00</updated>
+            <updated>2020-04-15T00:40:26+08:00</updated>
             <published>2020-03-04T16:59:31+08:00</published>
             <author>
                     <uri>https://keiksy.github.io/</uri>
@@ -187,7 +295,7 @@
             <title type="text">TCP&RDP原理简述</title>
             <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />
             <id>https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</id>
-            <updated>2020-03-17T09:52:54+08:00</updated>
+            <updated>2020-04-15T00:40:26+08:00</updated>
             <published>2020-03-04T04:41:04+08:00</published>
             <author>
                     <uri>https://keiksy.github.io/</uri>

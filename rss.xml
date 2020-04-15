@@ -10,17 +10,120 @@
         <title>Keiksy&#39;s NotePad</title>
         <link>https://keiksy.github.io/</link>
         <description>Keiksy同学的技术博客</description>
-        <generator>Hugo 0.65.3 https://gohugo.io/</generator>
+        <generator>Hugo 0.69.0 https://gohugo.io/</generator>
         
             <language>zh-CN</language>
         
         
         
         
-        <lastBuildDate>Tue, 17 Mar 2020 10:12:53 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 15 Apr 2020 11:41:20 +0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss+xml" href="https://keiksy.github.io/rss.xml" />
         
+        
+            <item>
+                <title>Lc015</title>
+                <link>https://keiksy.github.io/posts/lc015/</link>
+                <guid isPermaLink="true">https://keiksy.github.io/posts/lc015/</guid>
+                <pubDate>Wed, 15 Apr 2020 00:59:08 +0800</pubDate>
+                
+                
+                
+                    <description><![CDATA[<h1 id="leetcode-015--3sum">LeetCode 015 : 3Sum</h1>
+<h2 id="题面">题面</h2>
+<p>Given an array <code>nums</code> of <em>n</em> integers, are there elements <em>a</em>, <em>b</em>, <em>c</em> in <code>nums</code> such that <em>a</em> + <em>b</em> + <em>c</em> = 0? Find all unique triplets in the array which gives the sum of zero</p>
+<h2 id="题意">题意</h2>
+<p>给一个数组，找仨数，这三个数加起来等于零，找出所有不重复的组合。</p>
+<h2 id="题解">题解</h2>
+<p>最基础的解法：暴力O(n^3)。</p>
+<p>优化：固定一个，双指针法找另两个。</p>
+<p>其实里面坑还挺多的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">threeSum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+		<span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="o">//</span><span class="err">排序方便查找</span>
+  	<span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        
+    <span class="n">leng</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">leng</span><span class="p">):</span>
+      	<span class="o">//</span><span class="err">如果第一个数就大于</span><span class="mi">0</span><span class="err">，因为排过序，后面更大，不可能加起来等于</span><span class="mi">0</span>
+    		<span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+      			<span class="k">break</span>
+        <span class="o">//</span><span class="err">如果和第一个数数组中上一个数相同</span>
+        <span class="o">//</span><span class="err">事实上，在以上一个数为第一个数的搜索中，就可以将这次所有的搜索结果包括</span>
+        <span class="o">//</span><span class="err">因此，跳过去重</span>
+      	<span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        		<span class="k">continue</span>
+      	<span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">leng</span><span class="o">-</span><span class="mi">1</span>
+      	<span class="k">while</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">k</span><span class="p">:</span>
+            <span class="n">summ</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">summ</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">summ</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">k</span><span class="o">-=</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+              	<span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span>
+                <span class="o">//</span><span class="err">在这里</span><span class="n">j不要跟i一样和上一个数字比</span><span class="err">，很容易误伤</span>
+                <span class="o">//</span><span class="err">只有当产生了一个解时，再跳过所有重复的数字是合理的</span>
+              	<span class="k">while</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">k</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="k">while</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">k</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">k</span><span class="o">-=</span><span class="mi">1</span>
+                <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="n">k</span><span class="o">-=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+                
+                
+                
+                
+                
+                    
+                        
+                    
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>我真的需要一台MacBook Pro吗</title>
