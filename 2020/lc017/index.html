@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noodp"/>
-  <meta name="author" content="Kieksy">
+  <meta name="author" content="Keiksy">
   
   
   
@@ -48,11 +48,11 @@
     "headline" : "Lc017",
     "description" : "LeetCode 017 : Letter Combinations of a Phone Number 题面 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.\nA mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.\n题意 给一个电话号码，每一个数字在电话上都有对应的按键，每个按键上都有3~4个字母，我们称这个数字代表了这几个字母，找出这串电话号码代表的所有字母串。\n题解  迭代解法：  def letterCombinations(self, digits: str) -\x26gt; List[str]: dict = {\x26#39;2\x26#39;: \x26#34;abc\x26#34;, \x26#39;3\x26#39;: \x26#34;def\x26#34;, \x26#39;4\x26#39;: \x26#34;ghi\x26#34;, \x26#39;5\x26#39;: \x26#34;jkl\x26#34;, \x26#39;6\x26#39;: \x26#34;mno\x26#34;, \x26#39;7\x26#39;: \x26#34;pqrs\x26#34;, \x26#39;8\x26#39;: \x26#34;tuv\x26#34;, \x26#39;9\x26#39;: \x26#34;wxyz\x26#34;} \/\/如果给的digits是空串，则返回一个空列表 \/\/如果digits不是空串，则将第一个字符设置为空字符串，方便后续append \/\/cmb表示了所有的组合 cmb = [\x26#39;\x26#39;] if digits else [] for d in digits: \/\/每一步都会给cmb里的已有结果串们加上新的最后一个字母 \/\/例如cmb=[\x26#39;\x26#39;] -\x26gt; cmb = [\x26#39;a\x26#39;,\x26#39;b\x26#39;,\x26#39;c\x26#39;] cmb = [p \x2b q for p in cmb for q in dict[d]] return cmb  回溯解法：  def letterCombinations(self, digits: str) -\x26gt; List[str]: words = [\x26#39;abc\x26#39;,\x26#39;def\x26#39;,\x26#39;ghi\x26#39;,\x26#39;jkl\x26#39;,\x26#39;mno\x26#39;,\x26#39;pqrs\x26#39;,\x26#39;tuv\x26#39;,\x26#39;wxyz\x26#39;] ans = [] if len(digits)==0: return ans def helper(position, temp): if position==len(digits): ans.",
     "inLanguage" : "en-us",
-    "author" : "Kieksy",
-    "creator" : "Kieksy",
-    "publisher": "Kieksy",
-    "accountablePerson" : "Kieksy",
-    "copyrightHolder" : "Kieksy",
+    "author" : "Keiksy",
+    "creator" : "Keiksy",
+    "publisher": "Keiksy",
+    "accountablePerson" : "Keiksy",
+    "copyrightHolder" : "Keiksy",
     "copyrightYear" : "2020",
     "datePublished": "2020-04-16 13:08:32 \x2b0800 CST",
     "dateModified" : "2020-04-16 13:08:32 \x2b0800 CST",
@@ -118,7 +118,7 @@
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">Lc017</h1>
         <div class="post-meta">
-                Written by <a itemprop="name" href="https://keiksy.github.io" rel="author">Kieksy</a> with ♥ 
+                Written by <a itemprop="name" href="https://keiksy.github.io" rel="author">Keiksy</a> with ♥ 
                 <span class="post-time">
                 on <time datetime=2020-04-16 itemprop="datePublished">April 16, 2020</time>
                 </span>
@@ -196,7 +196,7 @@
              
             <p class="copyright-item">
                 <span>Author:</span>
-                <span>Kieksy </span>
+                <span>Keiksy </span>
                 </p>
             
            
@@ -206,10 +206,6 @@
                     <a href=https://keiksy.github.io/2020/lc017/>https://keiksy.github.io/2020/lc017/</span>
             </p>
             
-             
-            <p class="copyright-item lincese">
-                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
-            </p>
             
     </div>
 
@@ -249,7 +245,7 @@
     	 <i class="iconfont icon-love"></i> 
          </span>
          
-            <span class="author" itemprop="copyrightHolder"><a href="https://keiksy.github.io">Kieksy</a> | </span> 
+            <span class="author" itemprop="copyrightHolder"><a href="https://keiksy.github.io">Keiksy</a> | </span> 
          
 
          

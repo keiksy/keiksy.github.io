@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noodp"/>
-  <meta name="author" content="Kieksy">
+  <meta name="author" content="Keiksy">
   
   
   
@@ -48,11 +48,11 @@
     "headline" : "TCP\x26RDP原理简述",
     "description" : "RDT \x26amp; TCP 本文总结了可靠数据传输协议（RDT）和传输控制协议（TCP）的原理和工作方法，主要参考了《自顶向下》。\n可靠数据传输原理 为什么需要RDT协议？ RDT位于运输层，其下方的网络层，链路层均不是可靠的，在下面的层上传输数据，数据可能会丢失（丢包），可能会损坏（bit翻转），也可能会乱序发送。为了保证上层应用层的应用程序能够正常地工作，需要在运输层构建可靠的数据传输协议，保证接收方得到的数据的完整和正确。\n下面，我们会从最完美的假设开始构建RDT协议，再逐步地模拟真实通信的情况，进而完善RDT协议。\n本文的约定 在发送方，应用层通过rdt_send()调用rdt协议传输数据，运输层通过udt_send()调用网络层发送数据。\n在接收方，运输层通过rdt_rcv()调用网络层接收数据，运输层再通过deliver_data操作将确认的报文传给应用层协议。\n应用层使用AL（Application Layer）表示，运输层使用TL（Transportation Layer）表示，网络层使用NL（Network Layer）表示。\n1，2，3，4等序号表明一次网络通信过程中双方交互的动作顺序。\nRDT 1.0 RDT 1.0对于底层信道的假设是完全可靠的，因此不需要设计任何附加的措施来保证数据可靠传输。\n发送方：当应用层准备好发送数据时，只需调用rdt_send()传给运输层，运输层直接加上报文头发给网络层。\n接收方：当网络层收到数据时，只需调用rdt_rcv()传给运输层，运输层直接多路分解发送给应用层。\nRDT 2 Series RDT 2 Series假设分组中的位可能受损，导致数据损坏。但是还是不会丢包。\nRDT 2.0 考虑一个生活中的例子：A给B打电话，B准确地收到了A的消息后会说“OK”（用ACK信号表示），示意A继续说，如果A说了一句模糊不清的话，B会说“没听清”（用NAK信号表示），示意A重说一遍刚才的话。这里的ACK和NAK就是两个控制报文，控制报文可以让发送方知道哪些内容被正确接收，哪些内容接收有误并且需要重传。\n在计算机网络中，进行位差错检测有多种算法，这些算法通常会在报文上附加几个检测位，并且这些算法从数学上保证了正确。\n发送方：\n1.AL调用rdt_send()后，TL生成运输层报文，然后调用udt_send()发给NL。然后发送方开始等待接收方的控制报文。\n3.如果收到ACK报文，转回1，如果收到NAK报文，重传数据包，直到收到ACK为止。\n接收方：\n2.NL收到数据，调rdt_rcv()发给运输层，然后运输层检测数据位错误，如果没错，发送ACK报文给发送方，如果有错，发送NAK报文给发送方。\n当发送方收到接收方的控制报文之前，不可以发送下一个数据，只能等着，因此RDT 2.0是一个停等协议。\nRDT 2.1 在RDT 2.0中，没有考虑到ACK和NAK控制报文受损的情况，我们采用在报文中添加一个数据分组的序号字段来解决这个问题，对于停等协议，0和1两个标志就足够了，因为我们只需要区分目前\n发送方：\n1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。\n3.如果收到控制报文，发现或者分组损坏或者是NAK，则重传0号分组，发现是ACK，则等待AL准备好1号分组。\n4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。\n6.如果收到控制报文，发现或者分组损坏或者是NAK，则重传1号分组，发现是ACK，则等待AL准备好0号分组。\n接收方：\n2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错，传回NAK，若没错，并且是0号分组，传回ACK，进入等待1号报文的状态。\n5.等待发送方的1号分组，NL收到后发给TL，TL检验后若有错，传回NAK。若没错，并且是0号分组，证明第2步发送的ACK报文损坏，导致发送方重传0号分组，现在只需要传回ACK，再接着等待1号分组就可以了。若没错，并且是1号分组，则传回ACK，进入等待0号报文的状态。\nRDT 2.2 其实NAK控制报文也是不需要的，假设接收方已经确认了0号报文，发回了ACK0，然后接受1号报文时发现了报文损坏，则再次发回ACK0，发送方收到两个ACK0，就知道接收方没有正确收到0号报文之后的报文，这就是RDT 2.2相对于2.1的改进。\n发送方：\n1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。\n3.如果收到控制报文，发现或者分组损坏或者是ACK1，则重传0号分组，发现是ACK0，则等待AL准备好1号分组。\n4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。\n6.如果收到控制报文，发现或者分组损坏或者是ACK0，则重传1号分组，发现是ACK1，则等待AL准备好0号分组。\n接收方：\n2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错或者是1号分组，则传回ACK1，并继续等待0号分组。若没错并且是0号分组，则发送ACK0，进入等待1号分组的状态。\n5.如果收到控制报文，若发现分组损坏，则返回ACK0（要求重传1号分组），若发现是0号分组（证明上次ACK0传输出错，发送方重传0号分组），则返回ACK0，继续等待1号分组。若发现是1号分组，传回ACK1，进入等待0号分组的状态。\nRDT 3.0 RDT 3.0假设信道不仅会出错，还会出现丢包。\nRDT 3.0让发送方负责检测和解决丢包，假设发送方发送了一个分组，该分组或者接收方的ACK发生了丢包，这两种情况下发送方都收不到任何响应，如果发送方等待了足够长的时间并确定分组已经丢失，则只需要重传该分组即可。如果等待时间设置错误（过短），导致的冗余分组的处理方法RDT 2.2已经涉及，即采用分组序号。",
     "inLanguage" : "en-us",
-    "author" : "Kieksy",
-    "creator" : "Kieksy",
-    "publisher": "Kieksy",
-    "accountablePerson" : "Kieksy",
-    "copyrightHolder" : "Kieksy",
+    "author" : "Keiksy",
+    "creator" : "Keiksy",
+    "publisher": "Keiksy",
+    "accountablePerson" : "Keiksy",
+    "copyrightHolder" : "Keiksy",
     "copyrightYear" : "2020",
     "datePublished": "2020-03-04 04:41:04 \x2b0800 CST",
     "dateModified" : "2020-03-04 04:41:04 \x2b0800 CST",
@@ -118,7 +118,7 @@
     <header class="post-header">
         <h1 class="post-title" itemprop="name headline">TCP&amp;RDP原理简述</h1>
         <div class="post-meta">
-                Written by <a itemprop="name" href="https://keiksy.github.io" rel="author">Kieksy</a> with ♥ 
+                Written by <a itemprop="name" href="https://keiksy.github.io" rel="author">Keiksy</a> with ♥ 
                 <span class="post-time">
                 on <time datetime=2020-03-04 itemprop="datePublished">March 4, 2020</time>
                 </span>
@@ -237,7 +237,7 @@
              
             <p class="copyright-item">
                 <span>Author:</span>
-                <span>Kieksy </span>
+                <span>Keiksy </span>
                 </p>
             
            
@@ -247,10 +247,6 @@
                     <a href=https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/>https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</span>
             </p>
             
-             
-            <p class="copyright-item lincese">
-                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
-            </p>
             
     </div>
 
@@ -296,7 +292,7 @@
     	 <i class="iconfont icon-love"></i> 
          </span>
          
-            <span class="author" itemprop="copyrightHolder"><a href="https://keiksy.github.io">Kieksy</a> | </span> 
+            <span class="author" itemprop="copyrightHolder"><a href="https://keiksy.github.io">Keiksy</a> | </span> 
          
 
          
