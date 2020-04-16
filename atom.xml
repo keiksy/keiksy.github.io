@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">Keiksy&#39;s NotePad</title>
     <subtitle type="html">Keiksy同学的技术博客</subtitle>
-    <updated>2020-04-15T11:41:20+08:00</updated>
+    <updated>2020-04-16T13:38:55+08:00</updated>
     <id>https://keiksy.github.io/</id>
     <link rel="alternate" type="text/html" href="https://keiksy.github.io/" />
     <link rel="self" type="application/atom+xml" href="https://keiksy.github.io/atom.xml" />
@@ -12,10 +12,134 @@
     
     <generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator>
         <entry>
+            <title type="text">Lc017</title>
+            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/lc017/" />
+            <id>https://keiksy.github.io/posts/lc017/</id>
+            <updated>2020-04-16T13:38:24+08:00</updated>
+            <published>2020-04-16T13:08:32+08:00</published>
+            <author>
+                    <uri>https://keiksy.github.io/</uri>
+                    </author>
+            
+    
+    <summary type="html"><![CDATA[LeetCode 017 : Letter Combinations of a Phone Number 题面 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. A mapping of digit to letters (just like on the telephone buttons) is……]]></summary>
+            
+                <content type="html"><![CDATA[<h1 id="leetcode-017--letter-combinations-of-a-phone-number">LeetCode 017 : Letter Combinations of a Phone Number</h1>
+<h2 id="题面">题面</h2>
+<p>Given a string containing digits from <code>2-9</code> inclusive, return all possible letter combinations that the number could represent.</p>
+<p>A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.</p>
+<h2 id="题意">题意</h2>
+<p>给一个电话号码，每一个数字在电话上都有对应的按键，每个按键上都有3~4个字母，我们称这个数字代表了这几个字母，找出这串电话号码代表的所有字母串。</p>
+<h2 id="题解">题解</h2>
+<ul>
+<li>迭代解法：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">letterCombinations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">digits</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s2">&#34;abc&#34;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s2">&#34;def&#34;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="s2">&#34;ghi&#34;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">:</span> <span class="s2">&#34;jkl&#34;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">:</span> <span class="s2">&#34;mno&#34;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">:</span> <span class="s2">&#34;pqrs&#34;</span><span class="p">,</span>
+            <span class="s1">&#39;8&#39;</span><span class="p">:</span> <span class="s2">&#34;tuv&#34;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">:</span> <span class="s2">&#34;wxyz&#34;</span><span class="p">}</span>
+    		<span class="o">//</span><span class="err">如果给的</span><span class="n">digits是空串</span><span class="err">，则返回一个空列表</span>
+      	<span class="o">//</span><span class="err">如果</span><span class="n">digits不是空串</span><span class="err">，则将第一个字符设置为空字符串，方便后续</span><span class="n">append</span>
+        <span class="o">//</span><span class="n">cmb表示了所有的组合</span>
+        <span class="n">cmb</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">digits</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">:</span>
+          	<span class="o">//</span><span class="err">每一步都会给</span><span class="n">cmb里的已有结果串们加上新的最后一个字母</span>
+            <span class="o">//</span><span class="err">例如</span><span class="n">cmb</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">cmb</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+            <span class="n">cmb</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="o">+</span> <span class="n">q</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">cmb</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">[</span><span class="n">d</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="n">cmb</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>回溯解法：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">letterCombinations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">digits</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+		<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="s1">&#39;def&#39;</span><span class="p">,</span><span class="s1">&#39;ghi&#39;</span><span class="p">,</span><span class="s1">&#39;jkl&#39;</span><span class="p">,</span><span class="s1">&#39;mno&#39;</span><span class="p">,</span><span class="s1">&#39;pqrs&#39;</span><span class="p">,</span><span class="s1">&#39;tuv&#39;</span><span class="p">,</span><span class="s1">&#39;wxyz&#39;</span><span class="p">]</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">digits</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+      	<span class="k">return</span> <span class="n">ans</span>
+        
+    <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">temp</span><span class="p">):</span>
+      	<span class="k">if</span> <span class="n">position</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">digits</span><span class="p">):</span>
+          	<span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+            <span class="k">return</span>
+    		<span class="n">word</span> <span class="o">=</span> <span class="n">words</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">digits</span><span class="p">[</span><span class="n">position</span><span class="p">])</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+          	<span class="n">temp</span><span class="o">+=</span><span class="n">c</span>
+            <span class="n">helper</span><span class="p">(</span><span class="n">position</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>        
+    <span class="n">helper</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></td></tr></table>
+</div>
+</div>]]></content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/" term="算法" label="算法" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://keiksy.github.io/categories/leetcode/" term="LeetCode" label="LeetCode" />
+                            
+                        
+                    
+                
+                    
+                
+            
+        </entry>
+    
+        <entry>
             <title type="text">Lc015</title>
             <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/lc015/" />
             <id>https://keiksy.github.io/posts/lc015/</id>
-            <updated>2020-04-15T11:40:36+08:00</updated>
+            <updated>2020-04-16T13:07:49+08:00</updated>
             <published>2020-04-15T00:59:08+08:00</published>
             <author>
                     <uri>https://keiksy.github.io/</uri>
@@ -112,6 +236,20 @@
             
             
                 
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/" term="算法" label="算法" />
+                            
+                        
+                            
+                            
+                            
+                                <category scheme="https://keiksy.github.io/categories/leetcode/" term="LeetCode" label="LeetCode" />
+                            
+                        
                     
                 
                     
