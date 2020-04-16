@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Keiksy&#39;s NotePad</title>
+    <link>https://keiksy.github.io/categories/</link>
+    <description>Recent content in Categories on Keiksy&#39;s NotePad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Apr 2020 13:08:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://keiksy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LeetCode</title>
+      <link>https://keiksy.github.io/categories/leetcode/</link>
+      <pubDate>Thu, 16 Apr 2020 13:08:32 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/categories/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>算法</title>
+      <link>https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 16 Apr 2020 13:08:32 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>网络</title>
+      <link>https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Wed, 04 Mar 2020 04:41:04 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>计算机基础</title>
+      <link>https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 04 Mar 2020 04:41:04 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

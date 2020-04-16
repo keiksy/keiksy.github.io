@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="Kieksy">
+  
+  
+  
+  <link rel="prev" href="https://keiksy.github.io/2020/buying_mbp_or_not/" />
+  <link rel="next" href="https://keiksy.github.io/2020/lc017/" />
+  <link rel="canonical" href="https://keiksy.github.io/2020/lc015/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Lc015 | Keiksy&#39;s NotePad
+       
+  </title>
+  <meta name="title" content="Lc015 | Keiksy&#39;s NotePad">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/keiksy.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Lc015",
+    "headline" : "Lc015",
+    "description" : "LeetCode 015 : 3Sum 题面 Given an array nums of n integers, are there elements a, b, c in nums such that a \x2b b \x2b c = 0? Find all unique triplets in the array which gives the sum of zero\n题意 给一个数组，找仨数，这三个数加起来等于零，找出所有不重复的组合。\n题解 最基础的解法：暴力O(n^3)。\n优化：固定一个，双指针法找另两个。\n其实里面坑还挺多的。\ndef threeSum(self, nums: List[int]) -\x26gt; List[List[int]]: ans = [] \/\/排序方便查找 nums.sort() leng = len(nums) for i in range(leng): \/\/如果第一个数就大于0，因为排过序，后面更大，不可能加起来等于0 if nums[i]\x26gt;0: break \/\/如果和第一个数数组中上一个数相同 \/\/事实上，在以上一个数为第一个数的搜索中，就可以将这次所有的搜索结果包括 \/\/因此，跳过去重 if i\x26gt;0 and nums[i]==nums[i-1]: continue j, k = i\x2b1, leng-1 while j\x26lt;k: summ = nums[i]\x2bnums[j]\x2bnums[k] if summ\x26lt;0: j\x2b=1 elif summ\x26gt;0: k-=1 else: ans.",
+    "inLanguage" : "en-us",
+    "author" : "Kieksy",
+    "creator" : "Kieksy",
+    "publisher": "Kieksy",
+    "accountablePerson" : "Kieksy",
+    "copyrightHolder" : "Kieksy",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-04-15 00:59:08 \x2b0800 CST",
+    "dateModified" : "2020-04-15 00:59:08 \x2b0800 CST",
+    "url" : "https:\/\/keiksy.github.io\/2020\/lc015\/",
+    "wordCount" : "114",
+    "keywords" : [  "Keiksy\x27s NotePad"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://keiksy.github.io">Keiksy&#39;s NotePad</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://keiksy.github.io">Keiksy&#39;s NotePad</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Lc015</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://keiksy.github.io" rel="author">Kieksy</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-04-15 itemprop="datePublished">April 15, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        <a href="https://keiksy.github.io/categories/leetcode/"> LeetCode </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="leetcode-015--3sum">LeetCode 015 : 3Sum</h1>
+<h2 id="题面">题面</h2>
+<p>Given an array <code>nums</code> of <em>n</em> integers, are there elements <em>a</em>, <em>b</em>, <em>c</em> in <code>nums</code> such that <em>a</em> + <em>b</em> + <em>c</em> = 0? Find all unique triplets in the array which gives the sum of zero</p>
+<h2 id="题意">题意</h2>
+<p>给一个数组，找仨数，这三个数加起来等于零，找出所有不重复的组合。</p>
+<h2 id="题解">题解</h2>
+<p>最基础的解法：暴力O(n^3)。</p>
+<p>优化：固定一个，双指针法找另两个。</p>
+<p>其实里面坑还挺多的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">threeSum</span>(self, nums: List[int]) <span style="color:#f92672">-&gt;</span> List[List[int]]:
+		ans <span style="color:#f92672">=</span> []
+    <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">排序方便查找</span>
+  	nums<span style="color:#f92672">.</span>sort()
+        
+    leng <span style="color:#f92672">=</span> len(nums)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(leng):
+      	<span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">如果第一个数就大于</span><span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">，因为排过序，后面更大，不可能加起来等于</span><span style="color:#ae81ff">0</span>
+    		<span style="color:#66d9ef">if</span> nums[i]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>:
+      			<span style="color:#66d9ef">break</span>
+        <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">如果和第一个数数组中上一个数相同</span>
+        <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">事实上，在以上一个数为第一个数的搜索中，就可以将这次所有的搜索结果包括</span>
+        <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">因此，跳过去重</span>
+      	<span style="color:#66d9ef">if</span> i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nums[i]<span style="color:#f92672">==</span>nums[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+        		<span style="color:#66d9ef">continue</span>
+      	j, k <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, leng<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+      	<span style="color:#66d9ef">while</span> j<span style="color:#f92672">&lt;</span>k:
+            summ <span style="color:#f92672">=</span> nums[i]<span style="color:#f92672">+</span>nums[j]<span style="color:#f92672">+</span>nums[k]
+            <span style="color:#66d9ef">if</span> summ<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>:
+                j<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">elif</span> summ<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>:
+                k<span style="color:#f92672">-=</span><span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+              	ans<span style="color:#f92672">.</span>append([nums[i], nums[j], nums[k]])
+                <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">在这里</span>j不要跟i一样和上一个数字比<span style="color:#960050;background-color:#1e0010">，很容易误伤</span>
+                <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">只有当产生了一个解时，再跳过所有重复的数字是合理的</span>
+              	<span style="color:#66d9ef">while</span> j<span style="color:#f92672">&lt;</span>k <span style="color:#f92672">and</span> nums[j]<span style="color:#f92672">==</span>nums[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]:
+                    j<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+                <span style="color:#66d9ef">while</span> j<span style="color:#f92672">&lt;</span>k <span style="color:#f92672">and</span> nums[k]<span style="color:#f92672">==</span>nums[k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+                    k<span style="color:#f92672">-=</span><span style="color:#ae81ff">1</span>
+                j<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+                k<span style="color:#f92672">-=</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">return</span> ans
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Kieksy </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://keiksy.github.io/2020/lc015/>https://keiksy.github.io/2020/lc015/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://keiksy.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://keiksy.github.io/2020/buying_mbp_or_not/" class="prev" rel="prev" title="我真的需要一台MacBook Pro吗"><i class="iconfont icon-left"></i>&nbsp;我真的需要一台MacBook Pro吗</a>
+         
+        
+        <a href="https://keiksy.github.io/2020/lc017/" class="next" rel="next" title="Lc017">Lc017&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://keiksy.github.io">Kieksy</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

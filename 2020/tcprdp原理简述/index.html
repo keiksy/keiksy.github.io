@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="Kieksy">
+  
+  
+  
+  
+  <link rel="next" href="https://keiksy.github.io/2020/helloworld/" />
+  <link rel="canonical" href="https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           TCP&amp;RDP原理简述 | Keiksy&#39;s NotePad
+       
+  </title>
+  <meta name="title" content="TCP&amp;RDP原理简述 | Keiksy&#39;s NotePad">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/keiksy.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "TCP\x26RDP原理简述",
+    "headline" : "TCP\x26RDP原理简述",
+    "description" : "RDT \x26amp; TCP 本文总结了可靠数据传输协议（RDT）和传输控制协议（TCP）的原理和工作方法，主要参考了《自顶向下》。\n可靠数据传输原理 为什么需要RDT协议？ RDT位于运输层，其下方的网络层，链路层均不是可靠的，在下面的层上传输数据，数据可能会丢失（丢包），可能会损坏（bit翻转），也可能会乱序发送。为了保证上层应用层的应用程序能够正常地工作，需要在运输层构建可靠的数据传输协议，保证接收方得到的数据的完整和正确。\n下面，我们会从最完美的假设开始构建RDT协议，再逐步地模拟真实通信的情况，进而完善RDT协议。\n本文的约定 在发送方，应用层通过rdt_send()调用rdt协议传输数据，运输层通过udt_send()调用网络层发送数据。\n在接收方，运输层通过rdt_rcv()调用网络层接收数据，运输层再通过deliver_data操作将确认的报文传给应用层协议。\n应用层使用AL（Application Layer）表示，运输层使用TL（Transportation Layer）表示，网络层使用NL（Network Layer）表示。\n1，2，3，4等序号表明一次网络通信过程中双方交互的动作顺序。\nRDT 1.0 RDT 1.0对于底层信道的假设是完全可靠的，因此不需要设计任何附加的措施来保证数据可靠传输。\n发送方：当应用层准备好发送数据时，只需调用rdt_send()传给运输层，运输层直接加上报文头发给网络层。\n接收方：当网络层收到数据时，只需调用rdt_rcv()传给运输层，运输层直接多路分解发送给应用层。\nRDT 2 Series RDT 2 Series假设分组中的位可能受损，导致数据损坏。但是还是不会丢包。\nRDT 2.0 考虑一个生活中的例子：A给B打电话，B准确地收到了A的消息后会说“OK”（用ACK信号表示），示意A继续说，如果A说了一句模糊不清的话，B会说“没听清”（用NAK信号表示），示意A重说一遍刚才的话。这里的ACK和NAK就是两个控制报文，控制报文可以让发送方知道哪些内容被正确接收，哪些内容接收有误并且需要重传。\n在计算机网络中，进行位差错检测有多种算法，这些算法通常会在报文上附加几个检测位，并且这些算法从数学上保证了正确。\n发送方：\n1.AL调用rdt_send()后，TL生成运输层报文，然后调用udt_send()发给NL。然后发送方开始等待接收方的控制报文。\n3.如果收到ACK报文，转回1，如果收到NAK报文，重传数据包，直到收到ACK为止。\n接收方：\n2.NL收到数据，调rdt_rcv()发给运输层，然后运输层检测数据位错误，如果没错，发送ACK报文给发送方，如果有错，发送NAK报文给发送方。\n当发送方收到接收方的控制报文之前，不可以发送下一个数据，只能等着，因此RDT 2.0是一个停等协议。\nRDT 2.1 在RDT 2.0中，没有考虑到ACK和NAK控制报文受损的情况，我们采用在报文中添加一个数据分组的序号字段来解决这个问题，对于停等协议，0和1两个标志就足够了，因为我们只需要区分目前\n发送方：\n1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。\n3.如果收到控制报文，发现或者分组损坏或者是NAK，则重传0号分组，发现是ACK，则等待AL准备好1号分组。\n4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。\n6.如果收到控制报文，发现或者分组损坏或者是NAK，则重传1号分组，发现是ACK，则等待AL准备好0号分组。\n接收方：\n2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错，传回NAK，若没错，并且是0号分组，传回ACK，进入等待1号报文的状态。\n5.等待发送方的1号分组，NL收到后发给TL，TL检验后若有错，传回NAK。若没错，并且是0号分组，证明第2步发送的ACK报文损坏，导致发送方重传0号分组，现在只需要传回ACK，再接着等待1号分组就可以了。若没错，并且是1号分组，则传回ACK，进入等待0号报文的状态。\nRDT 2.2 其实NAK控制报文也是不需要的，假设接收方已经确认了0号报文，发回了ACK0，然后接受1号报文时发现了报文损坏，则再次发回ACK0，发送方收到两个ACK0，就知道接收方没有正确收到0号报文之后的报文，这就是RDT 2.2相对于2.1的改进。\n发送方：\n1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。\n3.如果收到控制报文，发现或者分组损坏或者是ACK1，则重传0号分组，发现是ACK0，则等待AL准备好1号分组。\n4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。\n6.如果收到控制报文，发现或者分组损坏或者是ACK0，则重传1号分组，发现是ACK1，则等待AL准备好0号分组。\n接收方：\n2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错或者是1号分组，则传回ACK1，并继续等待0号分组。若没错并且是0号分组，则发送ACK0，进入等待1号分组的状态。\n5.如果收到控制报文，若发现分组损坏，则返回ACK0（要求重传1号分组），若发现是0号分组（证明上次ACK0传输出错，发送方重传0号分组），则返回ACK0，继续等待1号分组。若发现是1号分组，传回ACK1，进入等待0号分组的状态。\nRDT 3.0 RDT 3.0假设信道不仅会出错，还会出现丢包。\nRDT 3.0让发送方负责检测和解决丢包，假设发送方发送了一个分组，该分组或者接收方的ACK发生了丢包，这两种情况下发送方都收不到任何响应，如果发送方等待了足够长的时间并确定分组已经丢失，则只需要重传该分组即可。如果等待时间设置错误（过短），导致的冗余分组的处理方法RDT 2.2已经涉及，即采用分组序号。",
+    "inLanguage" : "en-us",
+    "author" : "Kieksy",
+    "creator" : "Kieksy",
+    "publisher": "Kieksy",
+    "accountablePerson" : "Kieksy",
+    "copyrightHolder" : "Kieksy",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-03-04 04:41:04 \x2b0800 CST",
+    "dateModified" : "2020-03-04 04:41:04 \x2b0800 CST",
+    "url" : "https:\/\/keiksy.github.io\/2020\/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0\/",
+    "wordCount" : "109",
+    "keywords" : [ "总结", "Keiksy\x27s NotePad"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://keiksy.github.io">Keiksy&#39;s NotePad</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://keiksy.github.io">Keiksy&#39;s NotePad</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">TCP&amp;RDP原理简述</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://keiksy.github.io" rel="author">Kieksy</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-03-04 itemprop="datePublished">March 4, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"> 计算机基础 </a>
+                        <a href="https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/"> 网络 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="rdt--tcp">RDT &amp; TCP</h1>
+<p>本文总结了可靠数据传输协议（RDT）和传输控制协议（TCP）的原理和工作方法，主要参考了《自顶向下》。</p>
+<h1 id="可靠数据传输原理">可靠数据传输原理</h1>
+<h2 id="为什么需要rdt协议">为什么需要RDT协议？</h2>
+<p>RDT位于运输层，其下方的网络层，链路层均不是可靠的，在下面的层上传输数据，数据可能会丢失（丢包），可能会损坏（bit翻转），也可能会乱序发送。为了保证上层应用层的应用程序能够正常地工作，需要在运输层构建可靠的数据传输协议，保证接收方得到的数据的完整和正确。</p>
+<p>下面，我们会从最完美的假设开始构建RDT协议，再逐步地模拟真实通信的情况，进而完善RDT协议。</p>
+<h2 id="本文的约定">本文的约定</h2>
+<p>在发送方，应用层通过rdt_send()调用rdt协议传输数据，运输层通过udt_send()调用网络层发送数据。</p>
+<p>在接收方，运输层通过rdt_rcv()调用网络层接收数据，运输层再通过deliver_data操作将确认的报文传给应用层协议。</p>
+<p>应用层使用AL（Application Layer）表示，运输层使用TL（Transportation Layer）表示，网络层使用NL（Network Layer）表示。</p>
+<p>1，2，3，4等序号表明一次网络通信过程中双方交互的动作顺序。</p>
+<h2 id="rdt-10">RDT 1.0</h2>
+<p>RDT 1.0对于底层信道的假设是完全可靠的，因此不需要设计任何附加的措施来保证数据可靠传输。</p>
+<p><strong>发送方</strong>：当应用层准备好发送数据时，只需调用rdt_send()传给运输层，运输层直接加上报文头发给网络层。</p>
+<p><strong>接收方</strong>：当网络层收到数据时，只需调用rdt_rcv()传给运输层，运输层直接多路分解发送给应用层。</p>
+<h2 id="rdt-2-series">RDT 2 Series</h2>
+<p>RDT 2 Series假设分组中的位可能受损，导致数据损坏。但是还是不会丢包。</p>
+<h3 id="rdt-20">RDT 2.0</h3>
+<p>考虑一个生活中的例子：A给B打电话，B准确地收到了A的消息后会说“OK”（用ACK信号表示），示意A继续说，如果A说了一句模糊不清的话，B会说“没听清”（用NAK信号表示），示意A重说一遍刚才的话。这里的ACK和NAK就是两个控制报文，控制报文可以让发送方知道哪些内容被正确接收，哪些内容接收有误并且需要重传。</p>
+<p>在计算机网络中，进行位差错检测有多种算法，这些算法通常会在报文上附加几个检测位，并且这些算法从数学上保证了正确。</p>
+<p><strong>发送方</strong>：</p>
+<p>1.AL调用rdt_send()后，TL生成运输层报文，然后调用udt_send()发给NL。然后发送方开始等待接收方的控制报文。</p>
+<p>3.如果收到ACK报文，转回1，如果收到NAK报文，重传数据包，直到收到ACK为止。</p>
+<p><strong>接收方</strong>：</p>
+<p>2.NL收到数据，调rdt_rcv()发给运输层，然后运输层检测数据位错误，如果没错，发送ACK报文给发送方，如果有错，发送NAK报文给发送方。</p>
+<p>当发送方收到接收方的控制报文之前，不可以发送下一个数据，只能等着，因此RDT 2.0是一个停等协议。</p>
+<h3 id="rdt-21">RDT 2.1</h3>
+<p>在RDT 2.0中，没有考虑到ACK和NAK控制报文受损的情况，我们采用在报文中添加一个数据分组的序号字段来解决这个问题，对于停等协议，0和1两个标志就足够了，因为我们只需要区分目前</p>
+<p><strong>发送方</strong>：</p>
+<p>1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。</p>
+<p>3.如果收到控制报文，发现或者分组损坏或者是NAK，则重传0号分组，发现是ACK，则等待AL准备好1号分组。</p>
+<p>4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。</p>
+<p>6.如果收到控制报文，发现或者分组损坏或者是NAK，则重传1号分组，发现是ACK，则等待AL准备好0号分组。</p>
+<p><strong>接收方</strong>：</p>
+<p>2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错，传回NAK，若没错，并且是0号分组，传回ACK，进入等待1号报文的状态。</p>
+<p>5.等待发送方的1号分组，NL收到后发给TL，TL检验后若有错，传回NAK。若没错，并且是0号分组，证明第2步发送的ACK报文损坏，导致发送方重传0号分组，现在只需要传回ACK，再接着等待1号分组就可以了。若没错，并且是1号分组，则传回ACK，进入等待0号报文的状态。</p>
+<h3 id="rdt-22">RDT 2.2</h3>
+<p>其实NAK控制报文也是不需要的，假设接收方已经确认了0号报文，发回了ACK0，然后接受1号报文时发现了报文损坏，则再次发回ACK0，发送方收到两个ACK0，就知道接收方没有正确收到0号报文之后的报文，这就是RDT 2.2相对于2.1的改进。</p>
+<p><strong>发送方</strong>：</p>
+<p>1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。</p>
+<p>3.如果收到控制报文，发现或者分组损坏或者是ACK1，则重传0号分组，发现是ACK0，则等待AL准备好1号分组。</p>
+<p>4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。</p>
+<p>6.如果收到控制报文，发现或者分组损坏或者是ACK0，则重传1号分组，发现是ACK1，则等待AL准备好0号分组。</p>
+<p><strong>接收方</strong>：</p>
+<p>2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错或者是1号分组，则传回ACK1，并继续等待0号分组。若没错并且是0号分组，则发送ACK0，进入等待1号分组的状态。</p>
+<p>5.如果收到控制报文，若发现分组损坏，则返回ACK0（要求重传1号分组），若发现是0号分组（证明上次ACK0传输出错，发送方重传0号分组），则返回ACK0，继续等待1号分组。若发现是1号分组，传回ACK1，进入等待0号分组的状态。</p>
+<h2 id="rdt-30">RDT 3.0</h2>
+<p>RDT 3.0假设信道不仅会出错，还会出现丢包。</p>
+<p>RDT 3.0让发送方负责检测和解决丢包，假设发送方发送了一个分组，该分组或者接收方的ACK发生了丢包，这两种情况下发送方都收不到任何响应，如果发送方等待了足够长的时间并确定分组已经丢失，则只需要重传该分组即可。如果等待时间设置错误（过短），导致的冗余分组的处理方法RDT 2.2已经涉及，即采用分组序号。</p>
+<p>在RDT 3.0中，为了实现基于时间的重传机制，设置了一个倒数定时器，在规定的时间过后会中断发送方。发送方需要做到：</p>
+<ol>
+<li>每次发送一个分组时，启动一个定时器。</li>
+<li>采取适当的动作响应定时器中断。</li>
+<li>当分组确认后，终止定时器。</li>
+</ol>
+<p>相较于RDT 2.2，RDT3.0的变化就是发送方发送分组后启动定时器，等待ACK时若定时器超时就重传并重启定时器，若收到正确的ACK就关闭定时器。</p>
+<h2 id="流水线rdt">流水线RDT</h2>
+<p>由于上面涉及到的RDT是一个串行的停等协议，对于通信链路的利用率低的可怕，因此可以对发送方进行流水线化改造，即允许发送方在收到上一个分组的ACK之前就发送下一个分组，为了进行多个分组的同时传输，现在有必要为每个分组指定唯一的分组序号，同时发送方和接收方要可以缓存多个分组。有两种可以解决流水线错误的协议。</p>
+<h3 id="回退n步协议go-back-n-stepsgbn">回退N步协议（Go Back N-Steps，GBN）</h3>
+<p>事实上就是滑窗法，发送方维护一个当前发送分组的窗口，如果n号分组和之前的分组全部确认，接收方才返回ACKn信号，只要发生乱序（提前收到之后的分组，我要5号你给我6号）直接丢弃分组，并返回最后一个有序的分组n的ACKn，然后发送方重传n+1号及之后的分组，这种确认方法被称为累积确认。</p>
+<h3 id="选择重传selective-repeatsr">选择重传（Selective Repeat，SR）</h3>
+<p>在GBN中，单个分组的出错就能引起大量重传，事实上很多分组没有必要重传，这样做就造成了性能下降。SR的做法是在接收方也维护一个窗口，
+窗口的左端点是顺序接收的最后一个分组的下一个，只要在窗口范围内的分组，哪怕失序到达也可以先缓存好。</p>
+<h1 id="传输控制协议tcp工作方式">传输控制协议（TCP）工作方式</h1>
+<p>在保证数据可靠传输方面，TCP的基本原理和上述RDT一致，下面就流量控制，拥塞控制和连接管理等方面来讨论TCP协议。</p>
+<h2 id="流量控制">流量控制</h2>
+<p>一条TCP链接的每侧主机都为该链接设置了缓存，如果发送方发送数据太快而接收方读取缓存数据太慢（比如接收方正在忙别的）
+就会导致接收方缓存溢出，流量控制机制即为解决这个问题而诞生。事实上流量控制是一个速度匹配服务。</p>
+<p>流量控制依靠在TCP报文中加入对本机的剩余缓存量实现。最终达到互相通知缓存剩余量的目的。</p>
+<h2 id="连接管理">连接管理</h2>
+<p>这里讨论了建立和拆除一条TCP连接时发生的事情。三次握手四次挥手的详细步骤见《自顶向下》。</p>
+<p>下面引用了<a href="https://www.zhihu.com/question/24853633/answer/115173386">知乎上的一个回答</a></p>
+<blockquote>
+<p>TCP可靠传输的精髓： TCP连接的一方A，由操作系统动态随机选取一个32位长的序列号(Initial Sequence Number)，假设A的初始序列号为1000，以该序列号为原点，对自己将要发送的每个字节的数据进行编号，1001, 1002，1003&hellip;.. 并把自己的初始序列号ISN告诉B，让B有一个思想准备，什么样编号的数据是合法的，什么编号是非法的，比如编号900就是非法的，同时B还可以对A每一个编号的字节数据进行确认。如果A收到B确认编号为2001，则意味着字节编号为1001-2000，共1000个字节已经安全到达。</p>
+</blockquote>
+<blockquote>
+<p>同理B也是类似的操作，假设B的初始序列号ISN为2000，以该序列号为原点，对自己将要发送的每个字节的数据进行编号，2001， 2002， 2003&hellip;. 并把自己的初始序列号ISN告诉A，以便A可以确认B发送的每一个字节。如果B收到A确认编号为4001,则意味着字节编号为2001-4000,共2000个字节已经安全到达。</p>
+</blockquote>
+<blockquote>
+<p>一句话概括，TCP连接握手，握的就是通信双方数据原点的序列号!</p>
+</blockquote>
+<h2 id="拥塞控制">拥塞控制</h2>
+<p>总地来说，拥塞是由于发送速率过快，中间路由器缓存或者通信链路容量不足而导致的丢包。</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Kieksy </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/>https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://keiksy.github.io/tags/%E6%80%BB%E7%BB%93/">
+                    #总结</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://keiksy.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+         
+        
+        <a href="https://keiksy.github.io/2020/helloworld/" class="next" rel="next" title="Hello World!">Hello World!&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://keiksy.github.io">Kieksy</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
