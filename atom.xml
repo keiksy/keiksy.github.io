@@ -2,25 +2,148 @@
 
 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
-    <title type="text">Keiksy&#39;s NotePad</title>
-    <subtitle type="html">Keiksy同学的技术博客</subtitle>
-    <updated>2020-04-16T13:38:55+08:00</updated>
-    <id>https://keiksy.github.io/</id>
-    <link rel="alternate" type="text/html" href="https://keiksy.github.io/" />
-    <link rel="self" type="application/atom+xml" href="https://keiksy.github.io/atom.xml" />
-    
-    
+    <title type="text">Hugo 主题 MemE</title>
+    <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
+    <updated>2020-04-23T18:35:29+08:00</updated>
+    <id>https://example.com/</id>
+    <link rel="alternate" type="text/html" href="https://example.com/" />
+    <link rel="self" type="application/atom+xml" href="https://example.com/atom.xml" />
+    <author>
+            <name>reuixiy</name>
+            <uri>https://example.com/</uri>
+            
+                <email>reuixiy@gmail.com</email>
+            </author>
+    <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator>
         <entry>
+            <title type="text">A_new_hackintosh_build</title>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/a_new_hackintosh_build/" />
+            <id>https://example.com/posts/a_new_hackintosh_build/</id>
+            <updated>2020-04-23T18:24:19+08:00</updated>
+            <published>2020-04-21T15:29:29+08:00</published>
+            <author>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
+    
+    <summary type="html"><![CDATA[记一次黑苹果安装 这篇文章记录在全新电脑（白盘裸机）上安装macOS的方法和一些坑，以……]]></summary>
+            
+                <content type="html"><![CDATA[<h1 id="记一次黑苹果安装">记一次黑苹果安装</h1>
+<p>这篇文章记录在全新电脑（白盘裸机）上安装macOS的方法和一些坑，以备后面查阅。</p>
+<h2 id="硬件概览">硬件概览</h2>
+<table>
+<thead>
+<tr>
+<th>硬件</th>
+<th align="left">型号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td align="left">i5-9400</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td align="left">西数SN550 500GB NVMe M.2 SSD</td>
+</tr>
+<tr>
+<td>显卡</td>
+<td align="left">UHD630 + 蓝宝石RX580 2048sp pulse</td>
+</tr>
+<tr>
+<td>主板</td>
+<td align="left">微星B360M迫击炮</td>
+</tr>
+</tbody>
+</table>
+<p>可能唯一的一个坑是这块rx580显卡，不过这坑是我自己要跳的，因为能打游戏又能黑苹果又能将价格压在1000元的全新显卡只有这一个，这块卡可以刷入rx570的vbios实现黑苹果免驱，我刷的是<a href="https://www.techpowerup.com/vgabios/218998/218998">这个</a>vbios，刷vbios的教程网上到处都有，只需要注意备份好原有的vbios，大概返厂维修会有点用（其实我想问卡都坏了还怎么点亮刷回去呢🐶）</p>
+<p>最近有一个新的黑苹果引导工具：OpenCore。不过我真的学不动了，我的打算是以后稳定在Mojave系统上，所以先用熟悉的clover凑合吧。</p>
+<h2 id="工具">工具</h2>
+<ul>
+<li>Windows 10 ISO镜像</li>
+<li>macOS Mojave 10.14.5 dmg镜像</li>
+<li>8GB高速U盘</li>
+<li>软件：UltraISO，etcher，diskgen</li>
+<li>clover EFI引导文件，我使用了<a href="https://github.com/SuperNG6/MSI-B360-Catalina-EFI">这里</a>的10.14系统专用的EFI，这份EFI在我的两台机器：i5-9400+msi B360M迫击炮+rx580和i5-9600K+msi Z390战斧导弹+uhd630上都可以很好地工作。</li>
+</ul>
+<h2 id="macoswin10单硬盘双系统安装步骤">macOS+win10单硬盘双系统安装步骤</h2>
+<ol>
+<li><strong>BIOS设置</strong>。对于这块微星主板，BIOS出厂设置的基础上只需要关闭CFG锁定就可以了。</li>
+<li><strong>制作macOS启动盘</strong>。另找一台电脑，将macOS dmg镜像使用etcher写入U盘，并替换EFI文件。有些人可能还在使用TransMac，可以试一下etcher这款工具，你会真香的。</li>
+<li><strong>安装macOS</strong>。安装macOS的步骤不需详谈。安装macOS后，在macOS的磁盘工具.app里分出一块空间，并将这块空间格式化为APFS文件系统，这块空间供Windows系统<del>和游戏</del>使用</li>
+<li><strong>制作win10启动盘</strong>。使用UltraISO将U盘写入Windows 10安装镜像。这一步我遇到了2个坑：
+<ol>
+<li>UltraISO报”设备访问错误“：在diskgen里删除这块U盘上的所有分区，右键点击U盘选择转换为MBR分区表，提交操作后在Windows磁盘管理里新建一个分区并格式化为FAT32文件系统即可。</li>
+<li>UltraISO报”Error formating NTFS volume X“：在制作启动盘界面点击“便捷启动”，选择“写入新的硬盘主引导记录（MBR）”，选择“USB-HDD+”，再次写入即可。</li>
+</ol>
+</li>
+<li><strong>安装win10</strong>。引导U盘安装win10，分区选择时将上一步分出的APFS分区删除，再在这个分区里安装。</li>
+</ol>
+<p>简单五步即可成功，重启即可发现主板会自动加载clover，并且clover里有macOS和Windows 10的引导项，非常的简单优雅。我之前网上搜索到的单硬盘安装双系统都还要通过winPE或者easyUEFI等第三方工具进行一些操作实现，其实是不必要的。</p>
+<h2 id="参考文献">参考文献</h2>
+<ol>
+<li><a href="https://www.techpowerup.com/vgabios/218998/218998">VBIOS来源</a></li>
+<li><a href="https://osx.cx/rx580-2048sp-shua-vbios-rx570.html">刷VBIOS方法</a></li>
+<li><a href="https://github.com/SuperNG6/MSI-B360-Catalina-EFI">稳定使用的EFI配置</a></li>
+<li><a href="https://jingyan.baidu.com/article/d169e18687230b026711d818.html">UltraISO报”Error formating NTFS volume X“的解决方法</a></li>
+</ol>
+]]></content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">Lc019</title>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/lc019/" />
+            <id>https://example.com/posts/lc019/</id>
+            <updated>2020-04-21T15:27:34+08:00</updated>
+            <published>2020-04-16T14:42:38+08:00</published>
+            <author>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html"><![CDATA[]]></summary>
+            
+                <content type="html"><![CDATA[]]></content>
+            
+            
+            
+            
+            
+                
+                    
+                
+                    
+                
+            
+        </entry>
+    
+        <entry>
             <title type="text">Lc017</title>
-            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/lc017/" />
-            <id>https://keiksy.github.io/posts/lc017/</id>
-            <updated>2020-04-16T13:38:24+08:00</updated>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/lc017/" />
+            <id>https://example.com/posts/lc017/</id>
+            <updated>2020-04-21T15:27:34+08:00</updated>
             <published>2020-04-16T13:08:32+08:00</published>
             <author>
-                    <uri>https://keiksy.github.io/</uri>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
                     </author>
-            
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     
     <summary type="html"><![CDATA[LeetCode 017 : Letter Combinations of a Phone Number 题面 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. A mapping of digit to letters (just like on the telephone buttons) is……]]></summary>
             
@@ -119,13 +242,13 @@
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/" term="算法" label="算法" />
+                                <category scheme="https://example.com/categories/%E7%AE%97%E6%B3%95/" term="算法" label="算法" />
                             
                         
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/leetcode/" term="LeetCode" label="LeetCode" />
+                                <category scheme="https://example.com/categories/leetcode/" term="LeetCode" label="LeetCode" />
                             
                         
                     
@@ -137,14 +260,16 @@
     
         <entry>
             <title type="text">Lc015</title>
-            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/lc015/" />
-            <id>https://keiksy.github.io/posts/lc015/</id>
-            <updated>2020-04-16T13:07:49+08:00</updated>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/lc015/" />
+            <id>https://example.com/posts/lc015/</id>
+            <updated>2020-04-21T15:27:34+08:00</updated>
             <published>2020-04-15T00:59:08+08:00</published>
             <author>
-                    <uri>https://keiksy.github.io/</uri>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
                     </author>
-            
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     
     <summary type="html"><![CDATA[LeetCode 015 : 3Sum 题面 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of……]]></summary>
             
@@ -241,13 +366,13 @@
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/%E7%AE%97%E6%B3%95/" term="算法" label="算法" />
+                                <category scheme="https://example.com/categories/%E7%AE%97%E6%B3%95/" term="算法" label="算法" />
                             
                         
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/leetcode/" term="LeetCode" label="LeetCode" />
+                                <category scheme="https://example.com/categories/leetcode/" term="LeetCode" label="LeetCode" />
                             
                         
                     
@@ -259,14 +384,16 @@
     
         <entry>
             <title type="text">我真的需要一台MacBook Pro吗</title>
-            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/buying_mbp_or_not/" />
-            <id>https://keiksy.github.io/posts/buying_mbp_or_not/</id>
-            <updated>2020-04-15T00:40:26+08:00</updated>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/buying_mbp_or_not/" />
+            <id>https://example.com/posts/buying_mbp_or_not/</id>
+            <updated>2020-04-21T15:27:34+08:00</updated>
             <published>2020-03-10T05:58:07+08:00</published>
             <author>
-                    <uri>https://keiksy.github.io/</uri>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
                     </author>
-            
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     
     <summary type="html"><![CDATA[疯狂分析 今天拿到了心心念念的MacBook Pro 16''，这台Mac在苹果中国官网使用教……]]></summary>
             
@@ -390,14 +517,16 @@
     
         <entry>
             <title type="text">Hello World!</title>
-            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/helloworld/" />
-            <id>https://keiksy.github.io/posts/helloworld/</id>
-            <updated>2020-04-15T00:40:26+08:00</updated>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/helloworld/" />
+            <id>https://example.com/posts/helloworld/</id>
+            <updated>2020-04-21T15:27:34+08:00</updated>
             <published>2020-03-04T16:59:31+08:00</published>
             <author>
-                    <uri>https://keiksy.github.io/</uri>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
                     </author>
-            
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     
     <summary type="html"><![CDATA[我的个人博客上线了！ 从2月24日写下第一行Django代码起，十天之后，我的Hugo……]]></summary>
             
@@ -431,14 +560,16 @@
     
         <entry>
             <title type="text">TCP&RDP原理简述</title>
-            <link rel="alternate" type="text/html" href="https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />
-            <id>https://keiksy.github.io/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</id>
-            <updated>2020-04-15T00:40:26+08:00</updated>
+            <link rel="alternate" type="text/html" href="https://example.com/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/" />
+            <id>https://example.com/posts/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</id>
+            <updated>2020-04-21T15:27:34+08:00</updated>
             <published>2020-03-04T04:41:04+08:00</published>
             <author>
-                    <uri>https://keiksy.github.io/</uri>
+                    <name>reuixiy</name>
+                    <uri>https://io-oi.me/</uri>
+                    <email>reuixiy@gmail.com</email>
                     </author>
-            
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     
     <summary type="html"><![CDATA[RDT &amp; TCP 本文总结了可靠数据传输协议（RDT）和传输控制协议（TCP）的原理和工作方法，……]]></summary>
             
@@ -537,13 +668,13 @@
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" term="计算机基础" label="计算机基础" />
+                                <category scheme="https://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" term="计算机基础" label="计算机基础" />
                             
                         
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/categories/%E7%BD%91%E7%BB%9C/" term="网络" label="网络" />
+                                <category scheme="https://example.com/categories/%E7%BD%91%E7%BB%9C/" term="网络" label="网络" />
                             
                         
                     
@@ -553,7 +684,7 @@
                             
                             
                             
-                                <category scheme="https://keiksy.github.io/tags/%E6%80%BB%E7%BB%93/" term="总结" label="总结" />
+                                <category scheme="https://example.com/tags/%E6%80%BB%E7%BB%93/" term="总结" label="总结" />
                             
                         
                     
