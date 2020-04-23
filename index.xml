@@ -1,58 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Keiksy&#39;s NotePad on Keiksy&#39;s NotePad</title>
+    <title>Keiksy&#39;s NotePad</title>
     <link>https://keiksy.github.io/</link>
-    <description>Recent content in Keiksy&#39;s NotePad on Keiksy&#39;s NotePad</description>
+    <description>Recent content on Keiksy&#39;s NotePad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Apr 2020 14:42:38 +0800</lastBuildDate>
-    <atom:link href="/" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Apr 2020 15:29:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://keiksy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
-      <title>Posts</title>
-      <link>https://keiksy.github.io/posts/</link>
+      <title>A_new_hackintosh_build</title>
+      <link>https://keiksy.github.io/2020/a_new_hackintosh_build/</link>
+      <pubDate>Tue, 21 Apr 2020 15:29:29 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/2020/a_new_hackintosh_build/</guid>
+      <description>记一次黑苹果安装 这篇文章记录在全新电脑（白盘裸机）上安装macOS的方法和一些坑，以备后面查阅。
+硬件概览    硬件 型号     CPU i5-9400   硬盘 西数SN550 500GB NVMe M.2 SSD   显卡 UHD630 + 蓝宝石RX580 2048sp pulse   主板 微星B360M迫击炮    可能唯一的一个坑是这块rx580显卡，不过这坑是我自己要跳的，因为能打游戏又能黑苹果又能将价格压在1000元的全新显卡只有这一个，这块卡可以刷入rx570的vbios实现黑苹果免驱，我刷的是这个vbios，刷vbios的教程网上到处都有，只需要注意备份好原有的vbios，大概返厂维修会有点用（其实我想问卡都坏了还怎么点亮刷回去呢🐶）
+最近有一个新的黑苹果引导工具：OpenCore。不过我真的学不动了，我的打算是以后稳定在Mojave系统上，所以先用熟悉的clover凑合吧。
+工具  Windows 10 ISO镜像 macOS Mojave 10.14.5 dmg镜像 8GB高速U盘 软件：UltraISO，etcher，diskgen clover EFI引导文件，我使用了这里的10.14系统专用的EFI，这份EFI在我的两台机器：i5-9400+msi B360M迫击炮+rx580和i5-9600K+msi Z390战斧导弹+uhd630上都可以很好地工作。  macOS+win10单硬盘双系统安装步骤  BIOS设置。对于这块微星主板，BIOS出厂设置的基础上只需要关闭CFG锁定就可以了。 制作macOS启动盘。另找一台电脑，将macOS dmg镜像使用etcher写入U盘，并替换EFI文件。有些人可能还在使用TransMac，可以试一下etcher这款工具，你会真香的。 安装macOS。安装macOS的步骤不需详谈。安装macOS后，在macOS的磁盘工具.app里分出一块空间，并将这块空间格式化为APFS文件系统，这块空间供Windows系统和游戏使用 制作win10启动盘。使用UltraISO将U盘写入Windows 10安装镜像。这一步我遇到了2个坑：  UltraISO报”设备访问错误“：在diskgen里删除这块U盘上的所有分区，右键点击U盘选择转换为MBR分区表，提交操作后在Windows磁盘管理里新建一个分区并格式化为FAT32文件系统即可。 UltraISO报”Error formating NTFS volume X“：在制作启动盘界面点击“便捷启动”，选择“写入新的硬盘主引导记录（MBR）”，选择“USB-HDD+”，再次写入即可。   安装win10。引导U盘安装win10，分区选择时将上一步分出的APFS分区删除，再在这个分区里安装。  简单五步即可成功，重启即可发现主板会自动加载clover，并且clover里有macOS和Windows 10的引导项，非常的简单优雅。我之前网上搜索到的单硬盘安装双系统都还要通过winPE或者easyUEFI等第三方工具进行一些操作实现，其实是不必要的。</description>
+    </item>
+    
+    <item>
+      <title>Lc019</title>
+      <link>https://keiksy.github.io/2020/lc019/</link>
       <pubDate>Thu, 16 Apr 2020 14:42:38 +0800</pubDate>
       
-      <guid>https://keiksy.github.io/posts/</guid>
+      <guid>https://keiksy.github.io/2020/lc019/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>About</title>
-      <link>https://keiksy.github.io/about/</link>
-      <pubDate>Tue, 03 Mar 2020 22:54:14 +0800</pubDate>
+      <title>Lc017</title>
+      <link>https://keiksy.github.io/2020/lc017/</link>
+      <pubDate>Thu, 16 Apr 2020 13:08:32 +0800</pubDate>
       
-      <guid>https://keiksy.github.io/about/</guid>
-      <description>&lt;p&gt;&lt;em&gt;你好！&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;我是keiksy，这个名字起源于我的姓名的汉语拼音的英文读法，是我在彩虹六号：围攻美服进行游戏时一位美国老哥的叫法。&lt;/p&gt;
-&lt;p&gt;这里是我用来记录自己一些想法的地方。欢迎通过&lt;a href=&#34;mailto:hsinyaotsai@foxmail.com&#34;&gt;邮件&lt;/a&gt;联系我。&lt;/p&gt;
-&lt;p&gt;我目前还是一名学生，这是我的教育经历：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;中国石油大学（华东） - 测控技术与仪器 （2015-2019）&lt;/li&gt;
-&lt;li&gt;中南大学 - 计算机技术 -（2019-）（研究~~?~~方向：边缘计算，物联网等网络技术）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我的爱好是学习计算机技术和折腾数码产品&lt;del&gt;以及彩虹六号：围攻&lt;/del&gt;，我非常喜欢苹果产品和苹果软件，我使用过的苹果产品如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;iPhone 4&lt;/li&gt;
-&lt;li&gt;iPhone 5s&lt;/li&gt;
-&lt;li&gt;iPhone 6s&lt;/li&gt;
-&lt;li&gt;iPhone 8&lt;/li&gt;
-&lt;li&gt;iPhone Xs（目前使用）&lt;/li&gt;
-&lt;li&gt;the new iPad（人生第一部自己的苹果产品）&lt;/li&gt;
-&lt;li&gt;iPad Pro 9.7&lt;/li&gt;
-&lt;li&gt;iPad 2017&lt;/li&gt;
-&lt;li&gt;iPad Pro 10.5（目前使用，吃灰）&lt;/li&gt;
-&lt;li&gt;Apple Watch Series 4（目前使用）&lt;/li&gt;
-&lt;li&gt;AirPods 2016&lt;/li&gt;
-&lt;li&gt;AirPods Pro&lt;/li&gt;
-&lt;li&gt;iPod shuffle 4th Gen&lt;/li&gt;
-&lt;li&gt;Hackintosh设备若干，比如正在写这篇文章的Dell XPS13&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我喜欢的音乐风格是器乐摇滚/迷幻流行/自赏以及一些J-Pop，喜欢的乐队有RADWIMPS，きのこ帝国，文雀乐队。&lt;/p&gt;
-&lt;p&gt;我很喜欢摄影，设备是Sony ICLE-6300 + Sony SEL18-135，这里也会存放一些我的摄影作品。&lt;/p&gt;
-&lt;p&gt;我常去的网站有：V2EX，Chiphell，NGA&lt;del&gt;精英论坛&lt;/del&gt;，少数派。&lt;/p&gt;
-&lt;p&gt;我感兴趣的技术领域包括：网络编程，Web开发，操作系统技术等。&lt;/p&gt;
-</description>
+      <guid>https://keiksy.github.io/2020/lc017/</guid>
+      <description>LeetCode 017 : Letter Combinations of a Phone Number 题面 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+题意 给一个电话号码，每一个数字在电话上都有对应的按键，每个按键上都有3~4个字母，我们称这个数字代表了这几个字母，找出这串电话号码代表的所有字母串。
+题解  迭代解法：  def letterCombinations(self, digits: str) -&amp;gt; List[str]: dict = {&amp;#39;2&amp;#39;: &amp;#34;abc&amp;#34;, &amp;#39;3&amp;#39;: &amp;#34;def&amp;#34;, &amp;#39;4&amp;#39;: &amp;#34;ghi&amp;#34;, &amp;#39;5&amp;#39;: &amp;#34;jkl&amp;#34;, &amp;#39;6&amp;#39;: &amp;#34;mno&amp;#34;, &amp;#39;7&amp;#39;: &amp;#34;pqrs&amp;#34;, &amp;#39;8&amp;#39;: &amp;#34;tuv&amp;#34;, &amp;#39;9&amp;#39;: &amp;#34;wxyz&amp;#34;} //如果给的digits是空串，则返回一个空列表 //如果digits不是空串，则将第一个字符设置为空字符串，方便后续append //cmb表示了所有的组合 cmb = [&amp;#39;&amp;#39;] if digits else [] for d in digits: //每一步都会给cmb里的已有结果串们加上新的最后一个字母 //例如cmb=[&amp;#39;&amp;#39;] -&amp;gt; cmb = [&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;,&amp;#39;c&amp;#39;] cmb = [p + q for p in cmb for q in dict[d]] return cmb  回溯解法：  def letterCombinations(self, digits: str) -&amp;gt; List[str]: words = [&amp;#39;abc&amp;#39;,&amp;#39;def&amp;#39;,&amp;#39;ghi&amp;#39;,&amp;#39;jkl&amp;#39;,&amp;#39;mno&amp;#39;,&amp;#39;pqrs&amp;#39;,&amp;#39;tuv&amp;#39;,&amp;#39;wxyz&amp;#39;] ans = [] if len(digits)==0: return ans def helper(position, temp): if position==len(digits): ans.</description>
+    </item>
+    
+    <item>
+      <title>Lc015</title>
+      <link>https://keiksy.github.io/2020/lc015/</link>
+      <pubDate>Wed, 15 Apr 2020 00:59:08 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/2020/lc015/</guid>
+      <description>LeetCode 015 : 3Sum 题面 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero
+题意 给一个数组，找仨数，这三个数加起来等于零，找出所有不重复的组合。
+题解 最基础的解法：暴力O(n^3)。
+优化：固定一个，双指针法找另两个。
+其实里面坑还挺多的。
+def threeSum(self, nums: List[int]) -&amp;gt; List[List[int]]: ans = [] //排序方便查找 nums.sort() leng = len(nums) for i in range(leng): //如果第一个数就大于0，因为排过序，后面更大，不可能加起来等于0 if nums[i]&amp;gt;0: break //如果和第一个数数组中上一个数相同 //事实上，在以上一个数为第一个数的搜索中，就可以将这次所有的搜索结果包括 //因此，跳过去重 if i&amp;gt;0 and nums[i]==nums[i-1]: continue j, k = i+1, leng-1 while j&amp;lt;k: summ = nums[i]+nums[j]+nums[k] if summ&amp;lt;0: j+=1 elif summ&amp;gt;0: k-=1 else: ans.</description>
+    </item>
+    
+    <item>
+      <title>我真的需要一台MacBook Pro吗</title>
+      <link>https://keiksy.github.io/2020/buying_mbp_or_not/</link>
+      <pubDate>Tue, 10 Mar 2020 05:58:07 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/2020/buying_mbp_or_not/</guid>
+      <description>疯狂分析
+今天拿到了心心念念的MacBook Pro 16&amp;rsquo;&#39;，这台Mac在苹果中国官网使用教育优惠以￥17399购入，拥有一台Mac也算是我从初中就开始的梦想了。然而最终还要靠啃老实现
+使用一天过后，我发现MBP其实并不是我心中那台完美的笔记本电脑，仅仅第一天我就发现了一些问题：没有USB-A接口；有脱落涂层风险的镜面屏；所谓的妙控键盘手感不仅不如我之前的XPS13，甚至不如5年前的MacBook Air 2015；有些情况下风扇声太大，说是拖拉机毫不过分。说实在的，心里是有一些失望的。
+目前我在家里有一台安装了macOS Catalina的XPS13 2015，学校实验室也有一台安装了macOS Catalina的戴尔台式机，我还为它配了一块27寸的4K显示器。作为在学校的代码主力机。实际上它目前还有着相当不错的使用体验。
+所以我究竟为什么要又买一台配置差不多的MacBook Pro呢？希望可以通过本文的书写逐渐理清思路，做出正确的购买决策退货。
+购买动机分析   如果今年没有爆发新冠病毒疫情，我能按时返校，那么一定不会购买MacBook Pro。
+  我在家里只能使用XPS13，它的13寸屏幕太小，分辨率只有1080p，处理器是第五代双核i5，写代码体验较差。
+  那么究竟差在哪里呢？大概是因为屏幕和处理器。屏幕满眼狗牙，双核低电压处理器在开启多个Chrome标签页时会出现卡顿。
+  那么有差到让我无法工作吗？没有，说实在的我写的代码不需要多高的性能，而且XPS13搭载了8GB内存和256G的固态硬盘，单论性能而言，我认为和MacBook Air 2019不相伯仲。
+    我十分喜爱macOS；同时作为一名果粉，我非常欣赏苹果的软件和硬件产品，一直有着收集“苹果全家桶“的小心思。所以自从2019年11月发布以来，我一直很想购买这台在网上口碑很不错的MacBook Pro来达成苹果全家桶的”成就“。
+  综上所述：选择购买一台MacBook Pro的边际收益太低，这并不是什么迫切的需求，而且还包含了冲动情怀消费的因素。
+如果不买呢？后续的方案是怎样的？ 继续在家使用XPS13工作，或者我可以花费最多5000元购入一台i5+RX580配置的台式机，既可以玩游戏也可以安装黑苹果系统写代码。后者这种方案相比于购买一台MacBook Pro，对我而言只损失了一块素质很棒的MacBook Pro屏幕。
+如果买呢？后续的方案是怎样的？   在家这三个月使用MacBook Pro，将XPS13送给家人使用吃灰，他们对于电子产品的使用体验并没有多高的要求。这样一来，算上我以前的游戏本，我家就多出两台闲置的笔记本电脑，尽管性能都还不错。
+  到学校以后，关于是继续使用MacBook Pro还是戴尔台式机，我使用下面一张表格进行分析：
+MacBook Pro输掉的环节用X标记，胜利的环节用O标记。
+      戴尔台式机 MacBook Pro     性能X i7-6C12T 16GB 250G SSD i7-6C12T 16GB 500GB SSD 散热降频   散热X 无需考虑 有散热压力   系统稳定性 系统从未崩溃过 无需考虑   接口X USB-A USB-C 3.</description>
+    </item>
+    
+    <item>
+      <title>Hello World!</title>
+      <link>https://keiksy.github.io/2020/helloworld/</link>
+      <pubDate>Wed, 04 Mar 2020 16:59:31 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/2020/helloworld/</guid>
+      <description>我的个人博客上线了！
+从2月24日写下第一行Django代码起，十天之后，我的Hugo博客终于上线了！
+第一次产生写些什么的想法是在大二看了知乎上一个讲互联网内容分发的文章时产生的，文章提到现在的互联网上绝大多数人都是内容的消费者，而这样只输入不输出的习惯时间久了实际上会影响一个人的表达能力，当时的我已经感到自己的文字表达能力退化了不少强过吗，因此决心以后找一个地方存放自己的想法。
+关于个人信息记录，我做过的尝试有知乎专栏（有点丑说实话），各式各样的笔记应用（我还买过一年的Bear高级会员订阅，虽然后面11个月根本就没有打开过了），始终感觉不够装逼。后来学习了包括Java SSM和Django在内的Web开发技术，开始打算自己写一个博客网站。于是2月24日开始看教程动手，选择了Django+阿里云主机+阿里云域名的组合，在奋战了8天以后，发现不会前端技术的我使用模板继承套出来的博客又丑又难用，在书写Markdown内容时还会产生奇怪的Bug，而且在VPS部署新的后台代码时Git各种各样的操作让人崩溃，最后阿里云域名备案时还产生了死锁：我的河北省身份证无法在我读书的湖南省备案，然而想在河北省备案又需要京津冀的手机号。不过总的说来，这次使用Django写博客的经历还是学会了不少东西：
+ Django框架简单使用 Linux进一步学习和第一次实践：阅读了The Linux Command Line一书的大部分内容，学习了Vim编辑器的一些奇技淫巧 Git的重新学习和实践：阅读了Pro Git一书的部分章节 一些Unix工具学习：进程控制工具supervisor，Python HTTP服务器Gunicorn，反向代理服务器Nginx 复习了一些计算机网络的基础知识并领略了这些知识的实际落地形式  在解决一些Django博客问题的过程中，我发现了许多漂亮的个人博客，这些博客基本都是采用Hexo，Hugo等静态网页生成器生成静态页面然后部署在GitHub Pages上的方案，于是被上面奇奇怪怪问题困扰懒的我毅然采用了Hugo和GitHub Pages的方案，学习了一下午Hugo的使用方法以后，我发现这才是我想要的：简单，迅速，部署容易，即使不会前端的我也可以下载各种主题然后修改配置文件定制我的博客。
+3月4日，我用了一个通宵的时间修改配置文件，用Python写了一个部署新博文的脚本，又在GoDaddy购买了新的域名可怜了我11块在阿里云买的keiksy.tech，然后按照这篇博客的方法，在Cloudflare上做了CDN，并搞了一个HTTPS以提升逼格，现在你看到的博客自豪地采用了Hugo主题MemE，网站标题栏的字体是Euphoria，我看到这个字体的第一眼就爱上了。接下来的打算是将之前写的一些算法题题解搬运到这边，并选择一些更合适的字体，宋体这么文艺的字体显然并不适合书写技术博客。
+EOF</description>
+    </item>
+    
+    <item>
+      <title>TCP&amp;RDP原理简述</title>
+      <link>https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</link>
+      <pubDate>Wed, 04 Mar 2020 04:41:04 +0800</pubDate>
+      
+      <guid>https://keiksy.github.io/2020/tcprdp%E5%8E%9F%E7%90%86%E7%AE%80%E8%BF%B0/</guid>
+      <description>RDT &amp;amp; TCP 本文总结了可靠数据传输协议（RDT）和传输控制协议（TCP）的原理和工作方法，主要参考了《自顶向下》。
+可靠数据传输原理 为什么需要RDT协议？ RDT位于运输层，其下方的网络层，链路层均不是可靠的，在下面的层上传输数据，数据可能会丢失（丢包），可能会损坏（bit翻转），也可能会乱序发送。为了保证上层应用层的应用程序能够正常地工作，需要在运输层构建可靠的数据传输协议，保证接收方得到的数据的完整和正确。
+下面，我们会从最完美的假设开始构建RDT协议，再逐步地模拟真实通信的情况，进而完善RDT协议。
+本文的约定 在发送方，应用层通过rdt_send()调用rdt协议传输数据，运输层通过udt_send()调用网络层发送数据。
+在接收方，运输层通过rdt_rcv()调用网络层接收数据，运输层再通过deliver_data操作将确认的报文传给应用层协议。
+应用层使用AL（Application Layer）表示，运输层使用TL（Transportation Layer）表示，网络层使用NL（Network Layer）表示。
+1，2，3，4等序号表明一次网络通信过程中双方交互的动作顺序。
+RDT 1.0 RDT 1.0对于底层信道的假设是完全可靠的，因此不需要设计任何附加的措施来保证数据可靠传输。
+发送方：当应用层准备好发送数据时，只需调用rdt_send()传给运输层，运输层直接加上报文头发给网络层。
+接收方：当网络层收到数据时，只需调用rdt_rcv()传给运输层，运输层直接多路分解发送给应用层。
+RDT 2 Series RDT 2 Series假设分组中的位可能受损，导致数据损坏。但是还是不会丢包。
+RDT 2.0 考虑一个生活中的例子：A给B打电话，B准确地收到了A的消息后会说“OK”（用ACK信号表示），示意A继续说，如果A说了一句模糊不清的话，B会说“没听清”（用NAK信号表示），示意A重说一遍刚才的话。这里的ACK和NAK就是两个控制报文，控制报文可以让发送方知道哪些内容被正确接收，哪些内容接收有误并且需要重传。
+在计算机网络中，进行位差错检测有多种算法，这些算法通常会在报文上附加几个检测位，并且这些算法从数学上保证了正确。
+发送方：
+1.AL调用rdt_send()后，TL生成运输层报文，然后调用udt_send()发给NL。然后发送方开始等待接收方的控制报文。
+3.如果收到ACK报文，转回1，如果收到NAK报文，重传数据包，直到收到ACK为止。
+接收方：
+2.NL收到数据，调rdt_rcv()发给运输层，然后运输层检测数据位错误，如果没错，发送ACK报文给发送方，如果有错，发送NAK报文给发送方。
+当发送方收到接收方的控制报文之前，不可以发送下一个数据，只能等着，因此RDT 2.0是一个停等协议。
+RDT 2.1 在RDT 2.0中，没有考虑到ACK和NAK控制报文受损的情况，我们采用在报文中添加一个数据分组的序号字段来解决这个问题，对于停等协议，0和1两个标志就足够了，因为我们只需要区分目前
+发送方：
+1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。
+3.如果收到控制报文，发现或者分组损坏或者是NAK，则重传0号分组，发现是ACK，则等待AL准备好1号分组。
+4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。
+6.如果收到控制报文，发现或者分组损坏或者是NAK，则重传1号分组，发现是ACK，则等待AL准备好0号分组。
+接收方：
+2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错，传回NAK，若没错，并且是0号分组，传回ACK，进入等待1号报文的状态。
+5.等待发送方的1号分组，NL收到后发给TL，TL检验后若有错，传回NAK。若没错，并且是0号分组，证明第2步发送的ACK报文损坏，导致发送方重传0号分组，现在只需要传回ACK，再接着等待1号分组就可以了。若没错，并且是1号分组，则传回ACK，进入等待0号报文的状态。
+RDT 2.2 其实NAK控制报文也是不需要的，假设接收方已经确认了0号报文，发回了ACK0，然后接受1号报文时发现了报文损坏，则再次发回ACK0，发送方收到两个ACK0，就知道接收方没有正确收到0号报文之后的报文，这就是RDT 2.2相对于2.1的改进。
+发送方：
+1.AL调用rdt_send()，TL发送0号分组给NL，转入等待接收方控制报文状态。
+3.如果收到控制报文，发现或者分组损坏或者是ACK1，则重传0号分组，发现是ACK0，则等待AL准备好1号分组。
+4.AL调用rdt_send()，TL发送1号分组给NL，转入等待接收方控制报文状态。
+6.如果收到控制报文，发现或者分组损坏或者是ACK0，则重传1号分组，发现是ACK1，则等待AL准备好0号分组。
+接收方：
+2.等待发送方的0号分组，NL收到后发给TL，TL检验后若有错或者是1号分组，则传回ACK1，并继续等待0号分组。若没错并且是0号分组，则发送ACK0，进入等待1号分组的状态。
+5.如果收到控制报文，若发现分组损坏，则返回ACK0（要求重传1号分组），若发现是0号分组（证明上次ACK0传输出错，发送方重传0号分组），则返回ACK0，继续等待1号分组。若发现是1号分组，传回ACK1，进入等待0号分组的状态。
+RDT 3.0 RDT 3.0假设信道不仅会出错，还会出现丢包。
+RDT 3.0让发送方负责检测和解决丢包，假设发送方发送了一个分组，该分组或者接收方的ACK发生了丢包，这两种情况下发送方都收不到任何响应，如果发送方等待了足够长的时间并确定分组已经丢失，则只需要重传该分组即可。如果等待时间设置错误（过短），导致的冗余分组的处理方法RDT 2.2已经涉及，即采用分组序号。</description>
     </item>
     
   </channel>
